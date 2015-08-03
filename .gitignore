@@ -1,6 +1,7 @@
 target/*
 .idea/*
 elasticsearch-analysis-ansj.imi
+elasticsearch-analysis-ansj.iml
 *.class
 .settings/
 # Mobile Tools for Java (J2ME)
