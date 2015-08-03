@@ -67,9 +67,7 @@ public final class LetterCutNumberFilter extends TokenFilter {
                 if (letterBufferLength > 0) {
                     addTermAttributes(attributeList, letterBufferLength, letterBuffer);
                 }
-            } else {
             }
-
         }
         addTermAttributes(attributeList, numberBuffer.size(), numberBuffer);
         addTermAttributes(attributeList, letterBuffer.size(), letterBuffer);
