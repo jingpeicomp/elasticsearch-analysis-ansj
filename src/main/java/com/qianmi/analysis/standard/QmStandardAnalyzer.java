@@ -4,7 +4,6 @@ import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.core.LowerCaseFilter;
 import org.apache.lucene.analysis.core.StopAnalyzer;
 import org.apache.lucene.analysis.core.StopFilter;
-import org.apache.lucene.analysis.sinks.TeeSinkTokenFilter;
 import org.apache.lucene.analysis.standard.StandardFilter;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
 import org.apache.lucene.analysis.util.CharArraySet;
@@ -105,22 +104,25 @@ public final class QmStandardAnalyzer extends StopwordAnalyzerBase {
         TokenStream tok = new StandardFilter(getVersion(), src);
         tok = new LowerCaseFilter(getVersion(), tok);
         tok = new StopFilter(getVersion(), tok, stopwords);
-//        tok = new LetterCutNumberFilter(tok).getSink();
-        LetterCutNumberFilter source = new LetterCutNumberFilter(tok);
-        tok = source.getSink();
-//        TeeSinkTokenFilter source = new TeeSinkTokenFilter(tok);
-//        tok = source.newSinkTokenStream();
-        try {
-            source.reset();
-            source.consumeAllTokens();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         return new TokenStreamComponents(src, tok) {
             @Override
             protected void setReader(final Reader reader) throws IOException {
                 src.setMaxTokenLength(QmStandardAnalyzer.this.maxTokenLength);
                 super.setReader(reader);
+            }
+
+            public TokenStream getTokenStream() {
+                LetterCutNumberFilter source = new LetterCutNumberFilter(sink);
+                try {
+                    source.reset();
+                    source.consumeAllTokens();
+                    source.reset();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return source.getSink();
             }
         };
     }

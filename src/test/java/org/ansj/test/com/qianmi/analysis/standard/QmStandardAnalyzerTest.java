@@ -30,7 +30,7 @@ public class QmStandardAnalyzerTest {
         qmAnalyzer = null;
     }
 
-    @Test
+//    @Test
     public void testAnalyzeTokens() {
         String str = "中华人民共和国";
         try {
@@ -43,7 +43,7 @@ public class QmStandardAnalyzerTest {
         }
     }
 
-    @Test
+//    @Test
     public void testAnalyzeTokensNumber() {
         String str = "国abc123";
         try {
@@ -56,7 +56,7 @@ public class QmStandardAnalyzerTest {
         }
     }
 
-    @Test
+//    @Test
     public void testAnalyzeTokens1() {
         String str = "国abc12, b3";
         try {
@@ -69,7 +69,7 @@ public class QmStandardAnalyzerTest {
         }
     }
 
-    @Test
+//    @Test
     public void testAnalyzeTokens2() {
         String str = "国abc1ttt**6国32123%%%7777772, b3";
         try {
