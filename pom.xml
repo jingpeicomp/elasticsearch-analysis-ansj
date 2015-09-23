@@ -4,32 +4,17 @@
 
     <groupId>org.ansj</groupId>
     <artifactId>elasticsearch-analysis-ansj</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
     <name>elasticsearch-analysis-ansj</name>
     <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <elasticsearch.version>1.4.2</elasticsearch.version>
+        <elasticsearch.version>1.5.2</elasticsearch.version>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>mvn-repo</id>
-            <url>http://maven.ansj.org/</url>
-        </repository>
-    </repositories>
-    
-    <distributionManagement>
-		<repository>
-			<id>mvn-repo</id>
-			<url>scpexe://ansj/home/mvn-repo/ROOT</url>
-		</repository>
-	</distributionManagement>
-
     <dependencies>
-
 
         <dependency>
             <groupId>org.nlpcn</groupId>
@@ -132,4 +117,19 @@
 			</extension>
 		</extensions>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>ofpay-releases</id>
+            <name>releases</name>
+            <url>http://nexus.dev.ofpay.com/nexus/content/repositories/releases</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>ofpay-snapshots</id>
+            <name>snapshots</name>
+            <url>http://nexus.dev.ofpay.com/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>
