@@ -82,6 +82,19 @@ public class QmStandardAnalyzerTest {
         }
     }
 
+//    @Test
+    public void testAnalyzeTokens3() {
+        String str = "A";
+        try {
+            List<String> analyzeTokens = getAnalyzeTokens(str);
+            String[] expectResult = {"a"};
+            Assert.assertArrayEquals(analyzeTokens.toArray(new String[0]), expectResult);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Assert.fail("IOE exception happens");
+        }
+    }
+
     private List<String> getAnalyzeTokens(String text) throws IOException {
         StringReader reader = new StringReader(text);
         TokenStream ts = qmAnalyzer.tokenStream("content", reader);
