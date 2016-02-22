@@ -1,10 +1,12 @@
 package com.qianmi.analysis.standard;
 
 import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.core.LowerCaseFilter;
 import org.apache.lucene.analysis.core.StopFilter;
 import org.apache.lucene.analysis.standard.StandardFilter;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
+import org.apache.lucene.analysis.standard.std40.StandardTokenizer40;
 import org.apache.lucene.analysis.util.CharArraySet;
 import org.apache.lucene.analysis.util.StopwordAnalyzerBase;
 import org.apache.lucene.util.Version;
@@ -13,6 +15,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 /**
+ * QM标准分词
  * Created by liuzhaoming on 15/8/3.
  */
 public final class QmStandardAnalyzer extends StopwordAnalyzerBase {
@@ -40,26 +43,10 @@ public final class QmStandardAnalyzer extends StopwordAnalyzerBase {
     }
 
     /**
-     * @deprecated Use {@link #QmStandardAnalyzer(CharArraySet)}
-     */
-    @Deprecated
-    public QmStandardAnalyzer(Version matchVersion, CharArraySet stopWords) {
-        super(matchVersion, stopWords);
-    }
-
-    /**
      * Builds an analyzer with the default stop words ({@link #STOP_WORDS_SET}).
      */
     public QmStandardAnalyzer() {
         this(STOP_WORDS_SET);
-    }
-
-    /**
-     * @deprecated Use {@link #QmStandardAnalyzer()}
-     */
-    @Deprecated
-    public QmStandardAnalyzer(Version matchVersion) {
-        this(matchVersion, STOP_WORDS_SET);
     }
 
     /**
@@ -70,14 +57,6 @@ public final class QmStandardAnalyzer extends StopwordAnalyzerBase {
      */
     public QmStandardAnalyzer(Reader stopwords) throws IOException {
         this(loadStopwordSet(stopwords));
-    }
-
-    /**
-     * @deprecated Use {@link #QmStandardAnalyzer()}
-     */
-    @Deprecated
-    public QmStandardAnalyzer(Version matchVersion, Reader stopwords) throws IOException {
-        this(matchVersion, loadStopwordSet(stopwords, matchVersion));
     }
 
     /**
@@ -98,16 +77,16 @@ public final class QmStandardAnalyzer extends StopwordAnalyzerBase {
     }
 
     @Override
-    protected TokenStreamComponents createComponents(final String fieldName, final Reader reader) {
-        final StandardTokenizer src = new StandardTokenizer(getVersion(), reader);
+    protected TokenStreamComponents createComponents(final String fieldName) {
+        final StandardTokenizer src = new StandardTokenizer();
         src.setMaxTokenLength(maxTokenLength);
-        TokenStream tok = new StandardFilter(getVersion(), src);
-        tok = new LowerCaseFilter(getVersion(), tok);
-        tok = new StopFilter(getVersion(), tok, stopwords);
+        TokenStream tok = new StandardFilter(src);
+        tok = new LowerCaseFilter(tok);
+        tok = new StopFilter(tok, stopwords);
 
         return new TokenStreamComponents(src, tok) {
             @Override
-            protected void setReader(final Reader reader) throws IOException {
+            protected void setReader(final Reader reader) {
                 src.setMaxTokenLength(QmStandardAnalyzer.this.maxTokenLength);
                 super.setReader(reader);
             }

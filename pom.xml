@@ -3,39 +3,44 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.ansj</groupId>
-    <artifactId>elasticsearch-analysis-ansj</artifactId>
-    <version>1.0.2</version>
-
-    <name>elasticsearch-analysis-ansj</name>
-    <url>http://maven.apache.org</url>
+    <artifactId>elasticsearch-analysis-qianmi</artifactId>
+    <version>2.0.0</version>
+    <description>Qianmi Analyzer for Elasticsearch</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <elasticsearch.version>1.5.2</elasticsearch.version>
+        <elasticsearch.version>2.2.0</elasticsearch.version>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <elasticsearch.assembly.descriptor>${project.basedir}/src/main/assemblies/plugin.xml</elasticsearch.assembly.descriptor>
+        <elasticsearch.plugin.name>elasitcsearch-qianmi-analysis</elasticsearch.plugin.name>
+        <elasticsearch.plugin.classname>com.qianmi.analysis.elasticsearch.QmStandardAnalysisPlugin</elasticsearch.plugin.classname>
+        <elasticsearch.plugin.jvm>true</elasticsearch.plugin.jvm>
+        <elasticsearch.plugin.isolated>false</elasticsearch.plugin.isolated>
+        <skip.unit.tests>true</skip.unit.tests>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>mvn-repo</id>
+            <url>http://maven.nlpcn.org/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
-
-        <dependency>
-            <groupId>org.nlpcn</groupId>
-            <artifactId>nlp-lang</artifactId>
-            <version>0.2</version>
-        </dependency>
-
         <dependency>
             <groupId>org.ansj</groupId>
-            <artifactId>ansj_seg</artifactId>
-            <classifier>min</classifier>
-            <version>2.0.7</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>2.0.0</version>
-            <type>jar</type>
-            <scope>compile</scope>
+            <artifactId>elasticsearch-analysis-ansj</artifactId>
+            <version>2.1.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.elasticsearch</groupId>
+                    <artifactId>elasticsearch</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.ansj</groupId>
+                    <artifactId>ansj_lucene5_plug</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -101,6 +106,7 @@
                 <configuration>
                     <includeTypes>jar</includeTypes>
                     <excludeScope>provided</excludeScope>
+                    <excludeGroupIds>junit,org.hamcrest</excludeGroupIds>
                     <!--<includeScope>compile</includeScope>-->
                     <overWriteSnapshots>true</overWriteSnapshots>
                     <type>jar</type>

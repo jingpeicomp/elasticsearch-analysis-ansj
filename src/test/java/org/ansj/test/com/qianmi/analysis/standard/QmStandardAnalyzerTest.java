@@ -6,7 +6,6 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -30,7 +29,7 @@ public class QmStandardAnalyzerTest {
         qmAnalyzer = null;
     }
 
-//    @Test
+    //    @Test
     public void testAnalyzeTokens() {
         String str = "中华人民共和国";
         try {
@@ -43,7 +42,7 @@ public class QmStandardAnalyzerTest {
         }
     }
 
-//    @Test
+    //    @Test
     public void testAnalyzeTokensNumber() {
         String str = "国abc123";
         try {
@@ -56,7 +55,7 @@ public class QmStandardAnalyzerTest {
         }
     }
 
-//    @Test
+    //    @Test
     public void testAnalyzeTokens1() {
         String str = "国abc12, b3";
         try {
@@ -69,12 +68,12 @@ public class QmStandardAnalyzerTest {
         }
     }
 
-//    @Test
+    //    @Test
     public void testAnalyzeTokens2() {
         String str = "国abc1ttt**6国32123%%%7777772, b3";
         try {
             List<String> analyzeTokens = getAnalyzeTokens(str);
-            String[] expectResult = {"国", "abc", "1", "ttt", "6", "国","32123", "7777772", "b", "3"};
+            String[] expectResult = {"国", "abc", "1", "ttt", "6", "国", "32123", "7777772", "b", "3"};
             Assert.assertArrayEquals(analyzeTokens.toArray(new String[0]), expectResult);
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,7 +81,7 @@ public class QmStandardAnalyzerTest {
         }
     }
 
-//    @Test
+    //    @Test
     public void testAnalyzeTokens3() {
         String str = "A";
         try {

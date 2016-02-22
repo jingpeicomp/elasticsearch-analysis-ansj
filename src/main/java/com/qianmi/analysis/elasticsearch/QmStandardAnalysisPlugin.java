@@ -1,31 +1,32 @@
 package com.qianmi.analysis.elasticsearch;
 
-import org.ansj.elasticsearch.index.AnsjAnalysisBinderProcessor;
 import org.elasticsearch.common.inject.Module;
-import org.elasticsearch.index.analysis.AnalysisModule;
-import org.elasticsearch.plugins.AbstractPlugin;
+import org.elasticsearch.plugins.Plugin;
 
-public class QmStandardAnalysisPlugin extends AbstractPlugin {
+import java.util.Collection;
+import java.util.Collections;
+
+/**
+ * 支持ES 2.*.*版本新插件注册方式
+ * Created by liuzhaoming on 16/2/19.
+ */
+public class QmStandardAnalysisPlugin extends Plugin {
 
     @Override
     public String name() {
-        return "qm_plugin";
+        return "qm_analyzer_plugin";
     }
 
 
     @Override
     public String description() {
-        return "qianmi elasticsearch plugin";
+        return "qianmi elasticsearch analyzer plugin";
     }
 
 
     @Override
-    public void processModule(Module module) {
-        if (module instanceof AnalysisModule) {
-            AnalysisModule analysisModule = (AnalysisModule) module;
-            analysisModule.addProcessor(new QmStandardAnalysisBinderProcessor());
-            analysisModule.addProcessor(new AnsjAnalysisBinderProcessor());
-        }
+    public Collection<Module> nodeModules() {
+        return Collections.<Module>singletonList(new QmStandardAnalysisModule());
     }
 
 }
