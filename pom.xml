@@ -4,7 +4,7 @@
 
     <groupId>org.ansj</groupId>
     <artifactId>elasticsearch-analysis-ansj</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 
     <name>elasticsearch-analysis-ansj</name>
     <url>http://maven.apache.org</url>
@@ -122,13 +122,13 @@
         <repository>
             <id>ofpay-releases</id>
             <name>releases</name>
-            <url>http://nexus.dev.ofpay.com/nexus/content/repositories/releases</url>
+            <url>http://nexus.dev.qianmi.com/nexus/content/repositories/releases</url>
         </repository>
 
         <snapshotRepository>
             <id>ofpay-snapshots</id>
             <name>snapshots</name>
-            <url>http://nexus.dev.ofpay.com/nexus/content/repositories/snapshots</url>
+            <url>http://nexus.dev.qianmi.com/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 

@@ -15,7 +15,8 @@ import java.util.*;
 
 /**
  * Created by liuzhaoming on 15/7/31.
- * 分离英文和数字，主要是针对商品存在型号的特殊情况，a8250 切成（a, 8250）
+ * 1. 分离英文和数字，主要是针对商品存在型号的特殊情况，a8250 切成（a, 8250）
+ * 2. 分离特殊字符，比如q.boys q_boys 分词为q  boys
  */
 public final class LetterCutNumberFilter extends TokenFilter {
     private static final int LETTER = 1;
@@ -67,6 +68,17 @@ public final class LetterCutNumberFilter extends TokenFilter {
                 if (letterBufferLength > 0) {
                     addTermAttributes(attributeList, letterBufferLength, letterBuffer);
                 }
+            } else if (isSegmentSign(character)) {
+                //表示是需要忽略的英文符号
+                int numberBufferLength = numberBuffer.size();
+                if (numberBufferLength > 0) {
+                    addTermAttributes(attributeList, numberBufferLength, numberBuffer);
+                }
+
+                int letterBufferLength = letterBuffer.size();
+                if (letterBufferLength > 0) {
+                    addTermAttributes(attributeList, letterBufferLength, letterBuffer);
+                }
             }
         }
         addTermAttributes(attributeList, numberBuffer.size(), numberBuffer);
@@ -114,12 +126,17 @@ public final class LetterCutNumberFilter extends TokenFilter {
         return curChar >= '0' && curChar <= '9';
     }
 
+    private boolean isSegmentSign(char curChar) {
+        return curChar == '.' || curChar == '_' || curChar == '\'' || curChar == ':';
+    }
+
     private SinkTokenStream newSinkTokenStream() {
         SinkTokenStream sink = new SinkTokenStream(this.cloneAttributes());
         return sink;
     }
 
-    private void addTermAttributes(List<CharTermAttributeImpl> attributeList, int bufferLength, List<Character> charBuffer) {
+    private void addTermAttributes(List<CharTermAttributeImpl> attributeList, int bufferLength, List<Character>
+            charBuffer) {
         if (bufferLength == 0) {
             return;
         }
