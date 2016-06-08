@@ -15,7 +15,8 @@ import java.util.*;
 
 /**
  * Created by liuzhaoming on 15/7/31.
- * 分离英文和数字，主要是针对商品存在型号的特殊情况，a8250 切成（a, 8250）
+ * 1. 分离英文和数字，主要是针对商品存在型号的特殊情况，a8250 切成（a, 8250）
+ * 2. 分离英文中的.
  */
 public final class LetterCutNumberFilter extends TokenFilter {
     private static final int LETTER = 1;
