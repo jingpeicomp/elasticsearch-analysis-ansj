@@ -4,7 +4,7 @@
 
     <groupId>org.ansj</groupId>
     <artifactId>elasticsearch-analysis-ansj</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.5</version>
 
     <name>elasticsearch-analysis-ansj</name>
     <url>http://maven.apache.org</url>
