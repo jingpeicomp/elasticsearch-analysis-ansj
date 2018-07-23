@@ -15,6 +15,7 @@ public class QmStandardAnalysisBinderProcessor extends AnalysisModule.AnalysisBi
     public void processAnalyzers(AnalyzersBindings analyzersBindings) {
         analyzersBindings.processAnalyzer("qm_standard", QmStandardAnalyzerProvider.class);
         analyzersBindings.processAnalyzer("default", QmStandardAnalyzerProvider.class);
+        analyzersBindings.processAnalyzer("substring", SubStringAnalyzerProvider.class);
         super.processAnalyzers(analyzersBindings);
     }
 
